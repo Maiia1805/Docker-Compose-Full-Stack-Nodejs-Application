@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3002:3000"   # локальний порт 3002 → контейнерний порт 3000
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "3001:3001"
+    environment:
+      DB_URL: mongodb://db/vidly
+    depends_on:
+      - db
+
+  db:
+    image: mongo
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - vidly:/data/db
+
+volumes:
+  vidly:
