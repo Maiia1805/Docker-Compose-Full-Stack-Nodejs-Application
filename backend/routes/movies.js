@@ -6,13 +6,13 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   const movies = await Movie.find().sort("title");
-  res.send(movies);
+  res.send("Movies route is working!");
 });
 
 router.get("/:id", validateId, async (req, res) => {
   const movie = await Movie.findById(req.params.id);
   if (!movie) return res.status(404).send();
-  res.send(movie);
+  res.send("Movies route is working!");
 });
 
 router.post("/", async (req, res) => {
